@@ -2,18 +2,39 @@ import React from 'react'
 import { Link } from "react-router-dom"
 import styled from "styled-components";
 
-function Navigation() {
+function Navigation({user, setUser}) {
+
+    function handleLogout(){
+        fetch('/logout', { method: "DELETE"}).then((resp)=>{
+            if(resp.ok){
+                setUser(null)
+            }
+        })
+    }
   return (
     <Wrapper>
+        {user?(
+            <>
+            <NavH1>
+            <Link to="/">What's on the Menu?</Link>
+        </NavH1>
+        <Nav>
+          <button onClick={handleLogout}>Logout</button>
+        </Nav>
+            </>
+        ) :(
+            <>
         <NavH1>
             <Link to="/">What's on the Menu?</Link>
         </NavH1>
-    <Nav>
-        <Link to='/login'>
-            Login
-        </Link>
+        <Nav>
+          <Link to='/login'>
+              Login
+          </Link>
+        </Nav>
+      </>
+        )}
 
-    </Nav>
     </Wrapper>
   )
 }

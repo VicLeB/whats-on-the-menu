@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation/>
+      <Navigation user={user} setUser={setUser}/>
       <Switch>
         <Route path="/login">
           <Login onLogin={setUser}/>

@@ -12,7 +12,6 @@ function LoginForm() {
             <input type='text'/>
         </label>
         <input type='submit' value="Login"/>
-
     </form>
   )
 }

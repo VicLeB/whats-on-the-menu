@@ -1,11 +1,17 @@
 import React from 'react'
+import styled from "styled-components";
+import LoginForm from '../components/LoginForm';
 
 function Login() {
   return (
-    <div>
-        <h1>Test login</h1>
-    </div>
+    <Wrapper>
+        <LoginForm/>
+    </Wrapper>
   )
 }
 
 export default Login
+
+const Wrapper = styled.div`
+font-family: 'Courier New', Courier, monospace;
+`

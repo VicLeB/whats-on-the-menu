@@ -1,15 +1,18 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 function LoginForm() {
+    const [username, setUsername]= useState("")
+    const [password, setPassword]= useState("")
+
   return (
     <form>
         <label>
             Username
-            <input type='text'/>
+            <input type='text' value={username} onChange={(e)=> setUsername(e.target.value)}/>
         </label>
         <label>
             Password
-            <input type='text'/>
+            <input type='password' value={password} onChange= {(e)=> setPassword(e.target.value)}/>
         </label>
         <input type='submit' value="Login"/>
     </form>

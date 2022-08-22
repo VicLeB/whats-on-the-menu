@@ -5,13 +5,14 @@ import Navigation from "./components/Navigation";
 import Login from "./views/Login";
 
 function App() {
+  const [user, setUser] = useState(null)
 
   return (
     <div className="App">
       <Navigation/>
       <Switch>
         <Route path="/login">
-          <Login />
+          <Login onLogin={setUser}/>
         </Route>
         <Route exact path="/">
           <Home/>

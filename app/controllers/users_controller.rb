@@ -9,16 +9,14 @@ class UsersController < ApplicationController
     # '/signup
     def create
         user = User.create!(user_params)
-        if user.valid?
             session[:user_id] = user.id
-            render json:
-        end
+            render json: user, status: :created
     end
 
     private
 
     def user_params
-        params.permit(:username, :password)
+        params.permit(:username, :password, :password_confirmation, :admin)
     end
 
 end

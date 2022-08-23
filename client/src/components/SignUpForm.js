@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { useHistory } from 'react-router-dom'
 
 function SignUpForm({onLogin}) {
     const [username, setUsername] = useState("")
@@ -7,6 +8,7 @@ function SignUpForm({onLogin}) {
     const [admin, setAdmin] = useState(false)
     const [errors, setErrors] = useState([])
 
+    const history = useHistory()
 
     function handleCreateUser(e){
         e.preventDefault();
@@ -23,7 +25,10 @@ function SignUpForm({onLogin}) {
             }),
         }).then((resp) =>{
             if (resp.ok){
-                resp.json().then((user) => onLogin(user))
+                resp.json().then((user) => {
+                    onLogin(user)
+                    history.push('/')
+                })
             }else {
                 resp.json().then((error)=> setErrors(error.errors))
             }

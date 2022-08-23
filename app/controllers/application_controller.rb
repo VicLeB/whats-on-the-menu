@@ -18,7 +18,7 @@ before_action :authorized
 
 
     def render_record_invalid(e)
-        render json: {errors: e.reocrd.errors.full_messages}, status: :unprocessable_entity
+        render json: {errors: e.record.errors.full_messages}, status: :unprocessable_entity
     end
 
     def render_record_not_found

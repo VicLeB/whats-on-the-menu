@@ -11,6 +11,8 @@ function Navigation({user, setUser}) {
             }
         })
     }
+
+
   return (
     <Wrapper>
         {user?(
@@ -19,6 +21,7 @@ function Navigation({user, setUser}) {
             <Link to="/">What's on the Menu?</Link>
         </NavH1>
         <Nav>
+          {user.admin? <button>My Restaurant</button>: null}
           <button onClick={handleLogout}>Logout</button>
         </Nav>
             </>

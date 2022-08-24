@@ -31,7 +31,7 @@ function App() {
           <Login onLogin={setUser}/>
         </Route>
         <Route path="/restaurant/:id">
-          <RestaurantDetails/>
+          <RestaurantDetails user={user}/>
         </Route>
         <Route exact path="/">
           <Home restaurants={restaurants}/>

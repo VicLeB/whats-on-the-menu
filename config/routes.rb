@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :addresses, only:[:index, :show]
+  resources :restaurants, only: [:index, :show]
   resources :users
 
   post "/signup", to: "users#create"

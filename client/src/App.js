@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./views/Home";
 import Navigation from "./components/Navigation";
 import Login from "./views/Login";
+import RestaurantDetails from "./views/RestaurantDetails";
 
 function App() {
   const [user, setUser] = useState(null)
+  const [restaurants, setRestaurants] =useState([])
+  const [errors, setErrors] =useState(false)
+
+  useEffect(()=>{
+    fetch("/restaurants")
+    .then(resp => {
+      if(resp.ok){
+        resp.json().then((data)=>setRestaurants(data))
+      }else{
+        resp.json().then(error => setErrors(error.errors))
+      }
+    })
+  },[])
+
+  if (errors) return <h1>{errors}</h1>
 
   return (
     <div className="App">
@@ -14,12 +30,14 @@ function App() {
         <Route path="/login">
           <Login onLogin={setUser}/>
         </Route>
+        <Route path="/restaurant/:id">
+          <RestaurantDetails/>
+        </Route>
         <Route exact path="/">
-          <Home/>
+          <Home restaurants={restaurants}/>
         </Route>
       </Switch>
     </div>
-
   );
 }
 

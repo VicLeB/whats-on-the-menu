@@ -1,13 +1,26 @@
 import React, { useState, useEffect} from 'react'
+import { useParams } from 'react-router-dom'
 
-function LeaveAReview() {
+function LeaveAReview({user}) {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [reviewerName, setReviewerName] = useState("")
-    const [rating, setRating] = useState(null)
+    const [rating, setRating] = useState(5)
+
+
+
+    const params = useParams()
+
+    const restaurant_id = params.id
+    const user_id = user.id
 
     function handleReviewSubmit(e){
         e.preventDefault();
+        // fetch('/reviews',{
+        //     method: 'POST',
+        //     headers:{'Content-Type':'application/json'},
+        //     body:JSON.stringify({restaurant_id, user_id, title, content, reviewerName, rating})
+        // })
 
 
     }

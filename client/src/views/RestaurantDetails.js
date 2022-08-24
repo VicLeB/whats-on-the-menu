@@ -12,7 +12,7 @@ function RestaurantDetails({user}) {
         if (user == null){
         return <p>Sign in or Create an account to add your own Review</p>
     } else{
-        return user.admin? null: <Link to="/review"><button>Add Your Review</button></Link>
+        return user.admin? null: <Link to={`/restaurant/${params.id}/review`}><button>Add Your Review</button></Link>
     }
 }
 

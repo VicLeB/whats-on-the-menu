@@ -11,6 +11,8 @@ function App() {
   const [restaurants, setRestaurants] =useState([])
   const [errors, setErrors] =useState(false)
 
+
+
   useEffect(()=>{
     fetch("/restaurants")
     .then(resp => {
@@ -31,11 +33,11 @@ function App() {
         <Route path="/login">
           <Login onLogin={setUser}/>
         </Route>
-        <Route path="/restaurant/:id">
+        <Route exact path="/restaurant/:id">
           <RestaurantDetails user={user}/>
         </Route>
-        <Route path="/review">
-          <LeaveAReview/>
+        <Route path="/restaurant/:id/review">
+          <LeaveAReview user={user}/>
         </Route >
         <Route exact path="/">
           <Home restaurants={restaurants}/>

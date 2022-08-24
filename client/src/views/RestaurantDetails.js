@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import ReviewsContainer from '../components/ReviewsContainer'
 
 function RestaurantDetails({user}) {
@@ -12,7 +12,7 @@ function RestaurantDetails({user}) {
         if (user == null){
         return <p>Sign in or Create an account to add your own Review</p>
     } else{
-        return user.admin? null: <button>Add Your Review</button>
+        return user.admin? null: <Link to="/review"><button>Add Your Review</button></Link>
     }
 }
 

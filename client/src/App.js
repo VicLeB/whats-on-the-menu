@@ -4,6 +4,7 @@ import Home from "./views/Home";
 import Navigation from "./components/Navigation";
 import Login from "./views/Login";
 import RestaurantDetails from "./views/RestaurantDetails";
+import LeaveAReview from "./views/LeaveAReview";
 
 function App() {
   const [user, setUser] = useState(null)
@@ -33,6 +34,9 @@ function App() {
         <Route path="/restaurant/:id">
           <RestaurantDetails user={user}/>
         </Route>
+        <Route path="/review">
+          <LeaveAReview/>
+        </Route >
         <Route exact path="/">
           <Home restaurants={restaurants}/>
         </Route>

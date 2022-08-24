@@ -30,3 +30,15 @@ Address.create(restaurant_id:r2.id, street_number: 87, street_name:"Washington S
 Address.create(restaurant_id:r3.id, street_number:222, street_name:"Stanley Street", city:"Seattle",state:"WA", zipcode:98108)
 
 Address.create(restaurant_id:r4.id, street_number:1902, street_name:"Monroe Street", city:"Hoboken", state:"NJ", zipcode:07030)
+
+puts "Seeding Reviews..."
+
+Review.create(restaurant_id:r1.id, user_id:u5.id, reviewer_name: "John", title: "So Delicious!", content: "I took my wife out for an special dinner and we had a great time. The seafood was very fresh and the service was fantastic!", rating: 5)
+
+Review.create(restaurant_id:r1.id, user_id:u6.id, reviewer_name: "Spencer", title: "Lunch with a view", content: "I took my work collegues who were from out of town for lunch and everyone enjoyed the waterfront views! The food was also very good.", rating: 4)
+
+Review.create(restaurant_id:r2.id, user_id:u6.id, reviewer_name: "Spencer", title: "Can't go wrong with good Pizza!", content: "The apps were very nice but the pizza was the highlight of the meal! Crisp crust with delicious homemade tomato sauce!", rating: 5)
+
+Review.create(restaurant_id:r3.id, user_id:u5.id, reviewer_name: "John", title: "C'est bon!", content: "Must try the escargot! The cheese selection was also very good. I will be back!", rating: 5)
+
+Review.create(restaurant_id:r4.id, user_id:u5.id, reviewer_name: "John", title: "Fun spot!", content: "Fun atmosphere. Great for burger and fries any time!", rating: 4)

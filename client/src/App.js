@@ -4,11 +4,14 @@ import Home from "./views/Home";
 import Navigation from "./components/Navigation";
 import Login from "./views/Login";
 import RestaurantDetails from "./views/RestaurantDetails";
+import LeaveAReview from "./views/LeaveAReview";
 
 function App() {
   const [user, setUser] = useState(null)
   const [restaurants, setRestaurants] =useState([])
   const [errors, setErrors] =useState(false)
+
+
 
   useEffect(()=>{
     fetch("/restaurants")
@@ -30,9 +33,12 @@ function App() {
         <Route path="/login">
           <Login onLogin={setUser}/>
         </Route>
-        <Route path="/restaurant/:id">
-          <RestaurantDetails/>
+        <Route exact path="/restaurant/:id">
+          <RestaurantDetails user={user}/>
         </Route>
+        <Route path="/restaurant/:id/review">
+          <LeaveAReview user={user}/>
+        </Route >
         <Route exact path="/">
           <Home restaurants={restaurants}/>
         </Route>

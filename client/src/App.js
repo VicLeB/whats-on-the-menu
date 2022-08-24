@@ -11,7 +11,14 @@ function App() {
   const [restaurants, setRestaurants] =useState([])
   const [errors, setErrors] =useState(false)
 
-
+  useEffect(() => {
+    // auto-login
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
 
   useEffect(()=>{
     fetch("/restaurants")
@@ -23,6 +30,7 @@ function App() {
       }
     })
   },[])
+
 
   if (errors) return <h1>{errors}</h1>
 

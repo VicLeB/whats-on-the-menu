@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+puts "Seeding Users..."
+
 u1 = User.create(username:'jerry', password: 'fish', admin: true)
 u2 = User.create(username:'luna', password: 'ball', admin: true)
 u3 = User.create(username:'layla', password: 'bone', admin: true)
@@ -42,3 +44,18 @@ Review.create(restaurant_id:r2.id, user_id:u6.id, reviewer_name: "Spencer", titl
 Review.create(restaurant_id:r3.id, user_id:u5.id, reviewer_name: "John", title: "C'est bon!", content: "Must try the escargot! The cheese selection was also very good. I will be back!", rating: 5)
 
 Review.create(restaurant_id:r4.id, user_id:u5.id, reviewer_name: "John", title: "Fun spot!", content: "Fun atmosphere. Great for burger and fries any time!", rating: 4)
+
+puts "Seeding Menus..."
+
+m1= Menu.create(name:"Lunch", theme:1, restaurant_id:r1.id)
+m2= Menu.create(name:"Dinner", theme:1, restaurant_id:r1.id)
+m3= Menu.create(name:"Daily Special", theme:2, restaurant_id:r1.id)
+m4= Menu.create(name:"Lunch", theme:1, restaurant_id:r2.id)
+m5= Menu.create(name:"Dinner", theme:1, restaurant_id:r2.id)
+m6= Menu.create(name:"Dessert", theme:2, restaurant_id:r2.id)
+m7= Menu.create(name:"Lunch", theme:1, restaurant_id:r3.id)
+m8= Menu.create(name:"Dinner", theme:1, restaurant_id:r3.id)
+m9= Menu.create(name:"Brunch", theme:2, restaurant_id:r3.id)
+m10= Menu.create(name:"Lunch", theme:1, restaurant_id:r4.id)
+m11= Menu.create(name:"Dinner", theme:1, restaurant_id:r4.id)
+m12= Menu.create(name:"Late Night", theme:2, restaurant_id:r4.id)

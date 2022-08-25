@@ -94,3 +94,4 @@ c26= Course.create(name:"Shareables", menu_id:m11.id)
 c27= Course.create(name:"Main", menu_id:m11.id)
 c28= Course.create(name:"Cravings", menu_id:m12.id)
 
+puts "Seeding menu items..."

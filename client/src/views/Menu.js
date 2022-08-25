@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 
-function Menu() {
+function Menu({user}) {
     const [menu, setMenu] = useState(null)
     const [errors, setErrors] = useState([])
     const [menuCourses, setMenuCourses] = useState([])

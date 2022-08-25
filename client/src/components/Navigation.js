@@ -21,7 +21,7 @@ function Navigation({user, setUser}) {
             <Link to="/">What's on the Menu?</Link>
         </NavH1>
         <Nav>
-          {user.admin? <button>My Restaurant</button>: null}
+          {user.admin? <Link to="/myRestaurants"><button>My Restaurant</button></Link>: null}
           <button onClick={handleLogout}>Logout</button>
         </Nav>
             </>

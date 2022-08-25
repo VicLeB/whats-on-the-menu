@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :menu_items
+  resources :courses, only: :index
+  resources :menus, only: [:index, :show]
   resources :reviews, only: [:index, :create]
   resources :addresses, only:[:index, :show]
   resources :restaurants, only: [:index, :show]

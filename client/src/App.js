@@ -5,11 +5,14 @@ import Navigation from "./components/Navigation";
 import Login from "./views/Login";
 import RestaurantDetails from "./views/RestaurantDetails";
 import LeaveAReview from "./views/LeaveAReview";
+import Menu from "./views/Menu";
+import MyRestaurants from "./views/MyRestaurants";
 
 function App() {
   const [user, setUser] = useState(null)
   const [restaurants, setRestaurants] =useState([])
   const [errors, setErrors] =useState(false)
+  console.log(user)
 
   useEffect(() => {
     // auto-login
@@ -47,6 +50,12 @@ function App() {
         <Route path="/restaurant/:id/review">
           <LeaveAReview user={user}/>
         </Route >
+        <Route path="/restaurant/:id/menu/:id">
+          <Menu user={user}/>
+        </Route>
+        <Route path="/myRestaurants">
+          <MyRestaurants user={user}/>
+        </Route>
         <Route exact path="/">
           <Home restaurants={restaurants}/>
         </Route>

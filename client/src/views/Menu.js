@@ -4,15 +4,22 @@ import {useParams} from 'react-router-dom'
 function Menu() {
     const [menu, setMenu] = useState(null)
     const [errors, setErrors] = useState([])
+    const [menuCourses, setMenuCourses] = useState([])
 
     const params = useParams()
-    console.log(menu)
+
+    const courseList = menuCourses.map((course)=>{
+        return <h2 key={course.id}>{course.name}</h2>
+    })
 
     useEffect(()=>{
         fetch(`/menus/${params.id}`)
         .then((resp)=>{
             if(resp.ok){
-                resp.json().then(data => setMenu(data))
+                resp.json().then(data => {
+                    setMenu(data)
+                    setMenuCourses(data.courses)
+                })
             }else {
                 resp.json().then((data)=> setErrors(data.error))
             }
@@ -22,16 +29,17 @@ function Menu() {
     if(menu == null){
         return (
             <div>
-            Loading...
-        </div>
+                Loading...
+            </div>
         )
     }
 
-  return (
-    <div>
-        <h2>{menu.name}</h2>
-    </div>
-  )
+    return (
+        <div>
+            <h1>{menu.name}</h1>
+            {courseList}
+        </div>
+    )
 }
 
 export default Menu

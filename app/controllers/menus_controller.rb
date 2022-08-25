@@ -8,6 +8,6 @@ class MenusController < ApplicationController
 
     def show
         menu= Menu.find_by(id: params[:id])
-        render json: menu
+        render json: menu, include: ['courses', 'courses.menu_items']
     end
 end

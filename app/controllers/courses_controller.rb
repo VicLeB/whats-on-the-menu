@@ -6,5 +6,4 @@ class CoursesController < ApplicationController
         render json: courses
     end
 
-
 end

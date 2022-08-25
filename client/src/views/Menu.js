@@ -6,11 +6,26 @@ function Menu({user}) {
     const [errors, setErrors] = useState([])
     const [menuCourses, setMenuCourses] = useState([])
 
+
     const params = useParams()
+    // console.log(menu)
+
 
     const courseList = menuCourses.map((course)=>{
-        return <h2 key={course.id}>{course.name}</h2>
+        const items = course.menu_items
+        const itemsList= items.map((item)=>{
+            return <div>
+                <h3>{item.name}</h3><p>{item.description}</p><p>${item.price}</p>
+            </div>
+        })
+
+        return<div>
+            <h2 key={course.id}>{course.name}</h2>
+            {itemsList}
+        </div>
     })
+
+
 
     useEffect(()=>{
         fetch(`/menus/${params.id}`)

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
 
 function MyRestaurants({user}) {
     const [ownedRestaurant, setOwnedRestaurant] = useState(null)
@@ -23,6 +24,8 @@ function MyRestaurants({user}) {
         })
     },[])
 
+    // console.log(myRestaurantMenus)
+
     if (myRestaurantMenus == null) {
         return (
             <div>
@@ -32,12 +35,13 @@ function MyRestaurants({user}) {
     }
 
 
-    const menusList = myRestaurantMenus.map((menu)=> <li>{menu.name}<button>edit</button><button>remove</button></li>)
+    const menusList = myRestaurantMenus.map((menu)=> <li>{menu.name}<Link to={`/editMenu/${menu.id}`}><button>edit</button></Link><button>remove</button></li>)
 
     return (
         <div>
             <h1>Welcome to {ownedRestaurant.name} Management Page</h1>
             <ul>Current Menus:
+                <button>Add A New Menu</button>
                 {menusList}
             </ul>
 

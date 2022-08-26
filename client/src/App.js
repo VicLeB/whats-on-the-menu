@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import "./App.css";
 import Home from "./views/Home";
 import Navigation from "./components/Navigation";
 import Login from "./views/Login";

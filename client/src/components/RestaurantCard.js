@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {Image} from "../styles/Image.style"
 
 function RestaurantCard({restaurant}) {
     const location = restaurant.address
@@ -10,9 +11,10 @@ function RestaurantCard({restaurant}) {
             <p>{location.street_number} {location.street_name}</p>
             <p>{location.city},{location.state}</p>
             <p>{location.zipcode}</p>
-            <img alt="food image" src={restaurant.image_url}/>
+            <Image alt="food image" src={restaurant.image_url}/>
     </div>
   )
 }
+
 
 export default RestaurantCard

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :menu_items
-  resources :courses, only: [:index, :create]
+  resources :menu_items, only: [:index, :create, :destroy]
+  resources :courses, only: [:index, :create, :destroy]
   resources :menus, only: [:index, :show]
   resources :reviews, only: [:index, :create]
   resources :addresses, only:[:index, :show]

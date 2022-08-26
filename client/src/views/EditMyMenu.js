@@ -7,21 +7,31 @@ function EditMyMenu() {
     const [errors, setErrors] = useState([])
     const [itemName, setItemName] = useState("")
     const [itemDescription, setItemDescription] = useState("")
-    const [itemPrice, setItemPrice] = useState("")
+    const [itemPrice, setItemPrice] = useState(null)
     const [courseName, setCourseName] = useState("")
     const [showAddCourse, setShowAddCourse] = useState(false)
-    const [editCourseName, setEditCourseName]= useState("")
     const [courseId, setCourseId]= useState(null)
+    const [showAddItem, setShowAddItem] = useState(false)
+    const [newItemName, setNewItemName] = useState("")
+    const [newItemDescription, setNewItemDescription] = useState("")
+    const [newItemPrice, setNewItemPrice] = useState(null)
 
     const params = useParams()
     const history = useHistory()
     const menuId= params.id
 
     const courseNameFormData = {
-        name: editCourseName,
+        name: courseName,
         menu_id: menuId
     }
-    // console.log(editMenu)
+
+    const newItemFormData= {
+        name: newItemName,
+        description: newItemDescription,
+        price: newItemPrice,
+        course_id: courseId
+    }
+    console.log(courseId)
 
     useEffect(()=>{
         fetch(`/menus/${menuId}`)
@@ -36,7 +46,6 @@ function EditMyMenu() {
             }
         })
     },[])
-    console.log(errors)
 
     function addCourseClick(){
         setShowAddCourse(!showAddCourse)
@@ -50,6 +59,54 @@ function EditMyMenu() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(courseNameFormData),
+        }).then((resp)=>{
+            if(resp.ok){
+                resp.json().then(history.go(0))
+            }else{
+                resp.json().then((data)=> setErrors(data.errors))
+            }
+        })
+    }
+
+    function handleCourseDelete(e){
+        const deleteCourse= e.target.id
+        fetch(`/courses/${deleteCourse}`,{
+            method: 'DELETE',
+        }).then((resp)=>{
+            if(resp.ok){
+                resp.json().then(history.go(0))
+            }else{
+                resp.json().then((data)=> setErrors(data.errors))
+            }
+        })
+    }
+
+    function addItemClick(e){
+        setShowAddItem(!showAddItem)
+        setCourseId(e.target.id)
+    }
+
+    function handleAddItem(e){
+        e.preventDefault()
+        fetch('/menu_items',{
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newItemFormData),
+        }).then((resp)=>{
+            if(resp.ok){
+                resp.json().then(history.go(0))
+            }else{
+                resp.json().then((data)=> setErrors(data.errors))
+            }
+        })
+    }
+
+    function handleItemDelete(e){
+        const deleteItem = e.target.id
+        fetch(`/menu_items/${deleteItem}`,{
+            method: 'DELETE',
         }).then((resp)=>{
             if(resp.ok){
                 resp.json().then(history.go(0))
@@ -75,7 +132,7 @@ function EditMyMenu() {
                     </label>
                     <input type="submit" value="Save"/>
                 </form>
-                <button>Delete item</button>
+                <button id={item.id} onClick={handleItemDelete}>Delete item</button>
             </div>
         })
 
@@ -86,7 +143,20 @@ function EditMyMenu() {
                 </label>
                 <input type="submit" value="Save"/>
             </form>
-            <button>Delete Course</button>
+            <button id={course.id} onClick={handleCourseDelete}>Delete Course</button>
+            <button id={course.id} onClick={addItemClick} >Add new Item</button>
+            {showAddItem?<form onSubmit={handleAddItem}>
+                <label>Item Name:
+                    <input type="text" value={newItemName} placeholder="Add new item name..." onChange={(e)=>setNewItemName(e.target.value)}/>
+                </label>
+                <label>Item description:
+                    <textarea  value={newItemDescription} placeholder="Add new item description..." onChange={(e)=>setNewItemDescription(e.target.value)}/>
+                </label>
+                <label>Item price:
+                    <input type="number" value={newItemPrice} placeholder="Add new item price..." onChange={(e)=>setNewItemPrice(e.target.value)}/>
+                </label>
+                <input type="submit" value="Add" />
+            </form> :null}
             {editItemsList}
         </div>
     })
@@ -106,9 +176,9 @@ function EditMyMenu() {
             <button onClick={addCourseClick}>Add New Course</button>
             {showAddCourse?<form onSubmit={handleAddCourse}>
                 <label>Course Name:
-                    <input type="text" value={editCourseName} placeholder="Add new course name..." onChange={(e)=>setEditCourseName(e.target.value)}/>
+                    <input type="text" value={courseName} placeholder="Add new course name..." onChange={(e)=>setCourseName(e.target.value)}/>
                 </label>
-                <input type="submit" value="Save" />
+                <input type="submit" value="Add" />
             </form> :null}
             {courses}
         </div>

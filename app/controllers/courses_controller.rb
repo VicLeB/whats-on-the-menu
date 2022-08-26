@@ -11,6 +11,12 @@ class CoursesController < ApplicationController
         render json: course, status: :created
     end
 
+    def destroy
+        course= Course.find_by(id: params[:id])
+        course.destroy
+        head :no_content
+    end
+
     private
 
     def courses_params

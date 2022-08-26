@@ -17,6 +17,12 @@ class MenuItemsController < ApplicationController
         head :no_content
     end
 
+    def update
+        menuItem= MenuItem.find_by(id: params[:id])
+        menuItem.update!(menu_items_params)
+        render json: menuItem, status: :accepted
+    end
+
     private
 
     def menu_items_params

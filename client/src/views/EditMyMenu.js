@@ -31,7 +31,8 @@ function EditMyMenu() {
         price: newItemPrice,
         course_id: courseId
     }
-    console.log(courseId)
+
+    console.log(errors)
 
     useEffect(()=>{
         fetch(`/menus/${menuId}`)
@@ -81,6 +82,26 @@ function EditMyMenu() {
         })
     }
 
+    function handleCourseNameUpdate(e, course){
+        e.preventDefault()
+        fetch(`/courses/${course.id}`,{
+            method: 'PATCH',
+            headers:{
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body:JSON.stringify({
+                name: courseName
+            })
+        }).then((resp)=>{
+            if(resp.ok){
+                resp.json().then(history.go(0))
+            }else{
+                resp.json().then((data)=> setErrors(data.errors))
+            }
+        })
+    }
+
     function addItemClick(e){
         setShowAddItem(!showAddItem)
         setCourseId(e.target.id)
@@ -116,11 +137,34 @@ function EditMyMenu() {
         })
     }
 
+    function handleItemUpdate(e, item){
+        e.preventDefault()
+        const itemId= e.target.id
+        fetch(`/menu_items/${itemId}`,{
+            method: 'PATCH',
+            headers:{
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body:JSON.stringify({
+                name: itemName || item.name ,
+                description: itemDescription || item.description,
+                price: itemPrice || item.price
+            }),
+        }).then((resp)=>{
+            if(resp.ok){
+                resp.json().then(history.go(0))
+            }else{
+                resp.json().then((data)=> setErrors(data.errors))
+            }
+        })
+    }
+
     const courses = editCourses.map((course)=>{
         const editItems = course.menu_items
         const editItemsList= editItems.map((item)=>{
             return <div>
-                <form>
+                <form id ={item.id} onSubmit={(e) => handleItemUpdate(e, item)}>
                     <label>Item Name:
                         <input type="text" value={itemName} placeholder={item.name} onChange={(e)=> setItemName(e.target.value)}/>
                     </label>
@@ -137,7 +181,7 @@ function EditMyMenu() {
         })
 
         return <div>
-            <form>
+            <form onSubmit={(e)=> handleCourseNameUpdate(e, course)}>
                 <label>Course Name:
                 <input type="text" value={courseName} placeholder={course.name}onChange={(e)=> setCourseName(e.target.value)}/>
                 </label>
@@ -161,6 +205,8 @@ function EditMyMenu() {
         </div>
     })
 
+// rendering what is seen on the page
+
     if(editMenu == null){
         return (
             <div>
@@ -168,6 +214,7 @@ function EditMyMenu() {
             </div>
         )
     }
+
 
     return (
         <div>

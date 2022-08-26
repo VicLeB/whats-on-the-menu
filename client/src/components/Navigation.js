@@ -1,6 +1,16 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import styled from "styled-components";
+import {
+  NavigationContainer,
+  LeftContainer,
+  RightContainer,
+  NavigationInnerContainer,
+  NavigationLinkContainer,
+  NavigationLink,
+  NavigationButton,
+} from "../styles/Navigation.style"
+
 
 function Navigation({user, setUser}) {
 
@@ -14,52 +24,43 @@ function Navigation({user, setUser}) {
 
 
   return (
-    <Wrapper>
+    <>
+    <NavigationContainer>
+      <NavigationInnerContainer>
         {user?(
-            <>
-            <NavH1>
-            <Link to="/">What's on the Menu?</Link>
-        </NavH1>
-        <Nav>
-          {user.admin? <Link to="/myRestaurants"><button>My Restaurant</button></Link>: null}
-          <button onClick={handleLogout}>Logout</button>
-        </Nav>
+          <>
+        <LeftContainer>
+          <NavigationLinkContainer>
+            <NavigationLink to="/">What's on the Menu?</NavigationLink>
+          </NavigationLinkContainer>
+        </LeftContainer>
+        <RightContainer>
+          <NavigationLinkContainer>
+          {user.admin?
+          <NavigationLink to="/myRestaurants">My Restaurant</NavigationLink>: null}
+          <NavigationButton onClick={handleLogout}>Logout</NavigationButton>
+          </NavigationLinkContainer>
+        </RightContainer>
             </>
         ) :(
             <>
-        <NavH1>
-            <Link to="/">What's on the Menu?</Link>
-        </NavH1>
-        <Nav>
-          <Link to='/login'>
-              Login
-          </Link>
-        </Nav>
-      </>
+            <LeftContainer>
+              <NavigationLinkContainer>
+                <NavigationLink to="/">What's on the Menu?</NavigationLink>
+              </NavigationLinkContainer>
+            </LeftContainer>
+            <RightContainer>
+              <NavigationLinkContainer>
+                <NavigationLink to='/login'>Login</NavigationLink>
+              </NavigationLinkContainer>
+            </RightContainer>
+            </>
         )}
-
-    </Wrapper>
+      </NavigationInnerContainer>
+    </NavigationContainer>
+    </>
   )
 }
 
 export default Navigation
 
-const Wrapper = styled.header`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px;
-`;
-
-const NavH1= styled.h1`
-font-family: 'Courier New', Courier, monospace;
-
-a {
-    text-decoration: none;
-}
-`
-
-const Nav = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;

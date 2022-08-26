@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ReviewsContainer from '../components/ReviewsContainer'
 import MenusContainer from '../components/MenusContainer'
+import {Image} from "../styles/Image.style"
 
 function RestaurantDetails({user}) {
     const [restaurant, setRestaurant] = useState(null)
@@ -44,7 +45,7 @@ function RestaurantDetails({user}) {
     return (
         <div>
             <h1>Welcome to {restaurant.name}!</h1>
-            <img alt="food image" src={restaurant.image_url}/>
+            <Image alt="food image" src={restaurant.image_url}/>
             <h2>Our Current Menus</h2>
             <MenusContainer restaurantParams={params.id} menus={restaurantMenus}/>
             <h2>Checkout our Reviews:</h2>

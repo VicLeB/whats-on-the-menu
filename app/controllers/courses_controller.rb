@@ -7,9 +7,8 @@ class CoursesController < ApplicationController
     end
 
     def create
-        course = Course.create!(courses_params)
-
-
+        course =Course.create!(courses_params)
+        render json: course, status: :created
     end
 
     private

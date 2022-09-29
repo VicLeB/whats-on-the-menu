@@ -1,16 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom"
-import styled from "styled-components";
-import {
-  NavigationContainer,
-  LeftContainer,
-  RightContainer,
-  NavigationInnerContainer,
-  NavigationLinkContainer,
-  NavigationLink,
-  NavigationButton,
-} from "../styles/Navigation.style"
-
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 
 function Navigation({user, setUser}) {
 
@@ -25,39 +18,44 @@ function Navigation({user, setUser}) {
 
   return (
     <>
-    <NavigationContainer>
-      <NavigationInnerContainer>
-        {user?(
-          <>
-        <LeftContainer>
-          <NavigationLinkContainer>
-            <NavigationLink to="/">What's on the Menu?</NavigationLink>
-          </NavigationLinkContainer>
-        </LeftContainer>
-        <RightContainer>
-          <NavigationLinkContainer>
-          {user.admin?
-          <NavigationLink to="/myRestaurants">My Restaurant</NavigationLink>: null}
-          <NavigationButton onClick={handleLogout}>Logout</NavigationButton>
-          </NavigationLinkContainer>
-        </RightContainer>
-            </>
-        ) :(
-            <>
-            <LeftContainer>
-              <NavigationLinkContainer>
-                <NavigationLink to="/">What's on the Menu?</NavigationLink>
-              </NavigationLinkContainer>
-            </LeftContainer>
-            <RightContainer>
-              <NavigationLinkContainer>
-                <NavigationLink to='/login'>Login</NavigationLink>
-              </NavigationLinkContainer>
-            </RightContainer>
-            </>
-        )}
-      </NavigationInnerContainer>
-    </NavigationContainer>
+    <Navbar bg='dark' variant='dark'>
+      <Container>
+      {user?(<>
+        <Nav>
+          <Nav.Link>
+            <Link className="text-decoration-none text-white" to="/">
+              <Navbar.Brand>What's on the Menu?</Navbar.Brand>
+            </Link>
+          </Nav.Link>
+        </Nav>
+        <Nav className='gap-2'>
+        {user.admin?
+          <Nav.Link>
+            <Link className="text-decoration-none text-white" to="/myRestaurants">My Restaurant</Link>
+          </Nav.Link>
+        :null}
+          <Button onClick={handleLogout} variant='primary'>Logout</Button>
+        </Nav>
+      </>
+      ):(<>
+        <Nav>
+          <Nav.Link>
+            <Link className="text-decoration-none text-white" to="/">
+              <Navbar.Brand>What's on the Menu?</Navbar.Brand>
+            </Link>
+          </Nav.Link>
+        </Nav>
+        <Nav>
+          <Nav.Link>
+            <Button variant='primary'>
+            <Link className="text-decoration-none text-white" to="/login">Login</Link>
+            </Button>
+          </Nav.Link>
+        </Nav>
+      </>
+      )}
+      </Container>
+    </Navbar>
     </>
   )
 }

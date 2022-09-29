@@ -9,6 +9,7 @@ import LeaveAReview from "./views/LeaveAReview";
 import Menu from "./views/Menu";
 import MyRestaurants from "./views/MyRestaurants";
 import EditMyMenu from "./views/EditMyMenu";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [user, setUser] = useState(null)

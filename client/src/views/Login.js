@@ -12,15 +12,16 @@ function Login({onLogin}) {
     <LoginDiv>
         {showLogin? (
           <Wrapper>
-              <WelcomeTitle>Welcome Back!</WelcomeTitle>
-        <LoginForm onLogin= {onLogin}/>
-        <AccountStatusCaption>Don't have an account? Create one here <Button variant='primary' onClick={()=> setShowLogin(false)}>Sign up</Button>
-        </AccountStatusCaption>
+            <WelcomeTitle>Welcome Back!</WelcomeTitle>
+          <LoginForm onLogin= {onLogin}/>
+          <AccountStatusCaption>Don't have an account? Create one here <Button variant='primary' onClick={()=> setShowLogin(false)}>Sign up</Button>
+          </AccountStatusCaption>
         </Wrapper>
         ) : (
             <Wrapper>
+              <CreateAccountTitle>Sign Up Today!</CreateAccountTitle>
         <SignUpForm onLogin={onLogin}/>
-        <p>Already have an account? <Button variant='primary' onClick={()=> setShowLogin(true)}>Sign in</Button></p>
+        <AccountStatusCaption>Already have an account? <Button variant='primary' onClick={()=> setShowLogin(true)}>Sign in</Button></AccountStatusCaption>
         </Wrapper>
         )}
     </LoginDiv>
@@ -29,9 +30,14 @@ function Login({onLogin}) {
 
 export default Login
 
+const CreateAccountTitle = styled.h1`
+  margin:0 ;
+  padding-top: 3vh;
+`
+
 const AccountStatusCaption = styled.h6`
 font-weight: normal;
-padding-bottom: 5vh;
+padding-bottom: 3vh;
 `
 
 const WelcomeTitle = styled.h1`
@@ -55,5 +61,4 @@ const Wrapper = styled.div`
   height: 50vh;
   width: 50vw;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-
 `

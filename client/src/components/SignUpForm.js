@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 import { useHistory } from 'react-router-dom'
+import styled from "styled-components";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function SignUpForm({onLogin}) {
     const [username, setUsername] = useState("")
@@ -35,30 +38,45 @@ function SignUpForm({onLogin}) {
         })
     }
 
-  return (
-    <>
-    <form onSubmit={handleCreateUser}>
-        <label>
-            Username
-            <input type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
-        </label>
-        <label>
-            Password
-            <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
-        </label>
-        <label>
-            Confirm password
-            <input type="password" value={passwordConfirmation} onChange={(e)=> setPasswordConfirmation(e.target.value)}/>
-        </label>
-        <label>
-            Are you a restaurant owner looking to use our services?
-            <input type="checkbox" value={admin} onChange={() => setAdmin(!admin)}/>
-        </label>
-        <input type='submit' value="Create account"/>
-    </form>
-    {errors? <div>{errors.map((error)=> `${error}, ` )}</div>:null}
-    </>
-  )
+    return (
+    <SignUpFormWrapper>
+        <Form onSubmit={handleCreateUser}>
+            <Form.Group>
+                <Form.Label>
+                    Username
+                    <Form.Control type="text" value={username} onChange={(e)=> setUsername(e.target.value)}/>
+                </Form.Label>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>
+                    Password
+                    <Form.Control type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
+                </Form.Label>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>
+                    Confirm password
+                    <Form.Control type="password" value={passwordConfirmation} onChange={(e)=> setPasswordConfirmation(e.target.value)}/>
+                </Form.Label>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>
+
+                    <Form.Check type="checkbox" label='Are you a restaurant owner looking to use our services?' value={admin} onChange={() => setAdmin(!admin)}/>
+                </Form.Label>
+                    {errors? <Form.Text>{errors.map((error)=> `${error}, ` )}</Form.Text>:null}
+            </Form.Group>
+            <Button type='submit' variant='primary'>Create Account</Button>
+        </Form>
+    </SignUpFormWrapper>
+    )
 }
 
 export default SignUpForm
+
+const SignUpFormWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+`

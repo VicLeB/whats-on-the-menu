@@ -12,7 +12,7 @@ function Home({restaurants}) {
       <Row>
         <Col>
           <MainBanner>
-            <h1>Our Featured Restaurants</h1>
+            <FeatureTitle>Our Featured Restaurants</FeatureTitle>
           </MainBanner>
         </Col>
       </Row>
@@ -33,4 +33,9 @@ const MainBanner = styled.div`
   justify-content: center;
   height: 20vh;
   width: 100wv;
+`
+const FeatureTitle = styled.h1`
+font-weight: bold;
+font-size: 50px;
+color: #a5c9ca;
 `

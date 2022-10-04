@@ -17,7 +17,6 @@ function Navigation({user, setUser}) {
 
 
   return (
-    <>
     <Navbar bg='dark' variant='dark'>
       <Container>
       {user?(<>
@@ -56,7 +55,6 @@ function Navigation({user, setUser}) {
       )}
       </Container>
     </Navbar>
-    </>
   )
 }
 

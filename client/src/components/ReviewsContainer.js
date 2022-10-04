@@ -1,5 +1,6 @@
 import React from 'react'
 import Review from './Review'
+import styled from "styled-components";
 
 function ReviewsContainer({restaurant}) {
     const reviews = restaurant.reviews
@@ -8,10 +9,18 @@ function ReviewsContainer({restaurant}) {
     })
 
     return (
-        <div>
+        <ReviewsWrapper>
             {separateReviews}
-        </div>
+        </ReviewsWrapper>
     )
 }
 
 export default ReviewsContainer
+
+const ReviewsWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    padding-left: 4%;
+    padding-top: 2% ;
+`

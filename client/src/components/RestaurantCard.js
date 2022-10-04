@@ -35,20 +35,20 @@ const RestaurantCardContainer = styled.div`
   border-radius: 1%;
   border: none;
   -webkit-box-shadow: 5px 5px 10px -1px rgba(0,0,0,0.7);
-box-shadow: 5px 5px 10px -1px rgba(0,0,0,0.7);
+  box-shadow: 5px 5px 10px -1px rgba(0,0,0,0.7);
 `
 const RestaurantText = styled.div`
-padding-left: 3%;
-padding-bottom: 2%;
+  padding-left: 3%;
+  padding-bottom: 2%;
 `
 
 const RestaurantLink = styled(Link)`
-text-decoration: none;
-color: white;
-font-size: 45px;
-font-weight: bold;
-cursor: pointer;
-transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  color: white;
+  font-size: 45px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 
 &:hover {
         transition: all 0.2s ease-in-out;
@@ -58,5 +58,5 @@ transition: all 0.2s ease-in-out;
 `
 
 const AddressDetails = styled.h5`
-color: white;
+  color: white;
 `

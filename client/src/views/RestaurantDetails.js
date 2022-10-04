@@ -2,7 +2,10 @@ import React, {useEffect, useState} from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ReviewsContainer from '../components/ReviewsContainer'
 import MenusContainer from '../components/MenusContainer'
-import {Image} from "../styles/Image.style"
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import styled from "styled-components";
 
 function RestaurantDetails({user}) {
     const [restaurant, setRestaurant] = useState(null)
@@ -13,7 +16,7 @@ function RestaurantDetails({user}) {
 
     const writeReview= () =>{
         if (user == null){
-            return <p>Sign in or Create an account to add your own Review</p>
+            return <SignInPrompt>Sign in or Create an account to add your own Review</SignInPrompt>
         } else{
             return user.admin? null: <Link to={`/restaurant/${params.id}/review`}><button>Add Your Review</button></Link>
         }
@@ -43,16 +46,72 @@ function RestaurantDetails({user}) {
     }
 
     return (
-        <div>
-            <h1>Welcome to {restaurant.name}!</h1>
-            <Image alt="food image" src={restaurant.image_url}/>
-            <h2>Our Current Menus</h2>
-            <MenusContainer restaurantParams={params.id} menus={restaurantMenus}/>
-            <h2>Checkout our Reviews:</h2>
-            {writeReview()}
-            <ReviewsContainer restaurant={restaurant}/>
-        </div>
+        <Container fluid>
+            <Row>
+                <RestaurantBanner>
+                    <RestaurantWelcomeTitle>Welcome to {restaurant.name}!</RestaurantWelcomeTitle>
+                </RestaurantBanner>
+            </Row>
+            <Row>
+                <Col>
+                    <RestaurantImage alt="food image" src={restaurant.image_url}/>
+                </Col>
+                <Col>
+                    <Headers>Checkout our Reviews:</Headers>
+                    {writeReview()}
+                    <ReviewsContainer restaurant={restaurant}/>
+                </Col>
+            </Row>
+            <Row>
+                <OurMenusContainer>
+                    <Headers>Our Current Menus</Headers>
+                    <MenusContainer restaurantParams={params.id} menus={restaurantMenus}/>
+                </OurMenusContainer>
+            </Row>
+        </Container>
     )
 }
 
 export default RestaurantDetails
+
+const RestaurantImage = styled.img`
+    height: 50vh;
+    width: 50vw;
+    object-fit: cover;
+    padding: 0;
+    margin: 0;
+    border-radius: 1%;
+    border: none;
+    -webkit-box-shadow: 5px 5px 10px -1px rgba(0,0,0,0.7);
+    box-shadow: 5px 5px 10px -1px rgba(0,0,0,0.7);
+`
+
+const RestaurantBanner = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 16vh;
+    width: 100vw;
+    text-shadow: #474747 3px 5px 2px;
+`
+const RestaurantWelcomeTitle = styled.h1`
+    font-weight: bold;
+    font-size: 50px;
+    color: #a5c9ca;
+`
+const Headers = styled.h3`
+    color: #e7f6f2;
+`
+
+const SignInPrompt = styled.h6`
+    color: #e7f6f2;
+    font-style: italic;
+`
+
+const OurMenusContainer = styled.div`
+    padding-top: 3vh;
+    display: flex;
+    flex-direction: row;
+`
+
+

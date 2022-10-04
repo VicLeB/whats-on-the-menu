@@ -38,4 +38,5 @@ const FeatureTitle = styled.h1`
 font-weight: bold;
 font-size: 50px;
 color: #a5c9ca;
+text-shadow: #474747 3px 5px 2px;
 `

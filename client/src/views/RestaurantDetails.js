@@ -92,15 +92,20 @@ const RestaurantBanner = styled.div`
     justify-content: center;
     height: 16vh;
     width: 100vw;
-    text-shadow: #474747 3px 5px 2px;
+
 `
 const RestaurantWelcomeTitle = styled.h1`
     font-weight: bold;
     font-size: 50px;
     color: #a5c9ca;
+    text-shadow: #474747 3px 5px 2px;
 `
 const Headers = styled.h3`
-    color: #e7f6f2;
+    color: #a5c9ca;
+    text-shadow: #474747 3px 5px 2px;
+    font-weight: bold;
+    padding-right: 3vw;
+    margin: 0;
 `
 
 const SignInPrompt = styled.h6`
@@ -111,7 +116,8 @@ const SignInPrompt = styled.h6`
 const OurMenusContainer = styled.div`
     padding-top: 3vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
 `
 
 

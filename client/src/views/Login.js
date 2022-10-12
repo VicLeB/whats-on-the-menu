@@ -33,16 +33,22 @@ export default Login
 const CreateAccountTitle = styled.h1`
   margin:0 ;
   padding-top: 3vh;
+  color: #395B64;
+  font-weight: bold;
 `
 
 const AccountStatusCaption = styled.h6`
-font-weight: normal;
-padding-bottom: 3vh;
+  font-weight: normal;
+  padding-bottom: 3vh;
+  color: #395B64;
+  font-weight: bold;
 `
 
 const WelcomeTitle = styled.h1`
   margin:0 ;
   padding-top: 5vh;
+  color: #395B64;
+  font-weight: bold;
 `
 
 const LoginDiv = styled.div`
@@ -61,4 +67,5 @@ const Wrapper = styled.div`
   height: 50vh;
   width: 50vw;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+  background-color: #a5c9ca;
 `

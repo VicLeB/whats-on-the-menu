@@ -41,7 +41,6 @@ function LoginForm({onLogin}) {
                 <Form.Control type='text' placeholder='Username...' value={username} onChange={(e)=> setUsername(e.target.value)}/>
             </Form.Label>
             </Form.Group>
-
             <Form.Group>
             <Form.Label>
                 Password
@@ -49,9 +48,11 @@ function LoginForm({onLogin}) {
             </Form.Label>
                 {errors? <Form.Text>{errors}</Form.Text>:<div>Login Success!</div>}
             </Form.Group>
-            <Form.Group>
-                <Button type='submit' variant='primary'>Login</Button>
-            </Form.Group>
+            <FormButtonContainer>
+                <Form.Group>
+                    <Button type='submit' variant='primary'>Login</Button>
+                </Form.Group>
+            </FormButtonContainer>
         </Form>
     </LoginFormWrapper>
     )
@@ -64,4 +65,8 @@ const LoginFormWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     height: 100%;
+`
+
+const FormButtonContainer = styled.div`
+    padding-top: 2vh;
 `

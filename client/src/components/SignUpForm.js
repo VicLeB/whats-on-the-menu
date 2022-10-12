@@ -66,7 +66,9 @@ function SignUpForm({onLogin}) {
                 </Form.Label>
                     {errors? <Form.Text>{errors.map((error)=> `${error}, ` )}</Form.Text>:null}
             </Form.Group>
-            <Button type='submit' variant='primary'>Create Account</Button>
+            <FormButtonContainer>
+                <Button type='submit' variant='primary'>Create Account</Button>
+            </FormButtonContainer>
         </Form>
     </SignUpFormWrapper>
     )
@@ -79,4 +81,8 @@ const SignUpFormWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     height: 100%;
+`
+
+const FormButtonContainer = styled.div`
+    padding-top: 1vh;
 `

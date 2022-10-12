@@ -2,23 +2,35 @@ import React, {useEffect, useState} from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ReviewsContainer from '../components/ReviewsContainer'
 import MenusContainer from '../components/MenusContainer'
+import LeaveAReview from './LeaveAReview'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import styled from "styled-components";
 
 function RestaurantDetails({user}) {
     const [restaurant, setRestaurant] = useState(null)
     const [errors, setErrors] = useState([])
     const [restaurantMenus, setRestaurantMenus] = useState(null)
+    const [show, setShow] = useState(false)
 
     const params = useParams()
+
+    const handleShow= () => setShow(true)
+    const handleClose= () => setShow(false)
 
     const writeReview= () =>{
         if (user == null){
             return <SignInPrompt>Sign in or Create an account to add your own Review</SignInPrompt>
         } else{
-            return user.admin? null: <Link to={`/restaurant/${params.id}/review`}><button>Add Your Review</button></Link>
+            // return user.admin? null: <Link to={`/restaurant/${params.id}/review`}><Button variant='outline-light' onClick={handleShow}>Add Your Review</Button></Link>
+            return user.admin? null: (
+                <>
+            <Button variant='outline-light' onClick={handleShow}>Add Your Review</Button>
+            <LeaveAReview user={user} show={show} handleClose ={handleClose}/>
+            </>
+            )
         }
     }
 
@@ -105,6 +117,7 @@ const Headers = styled.h3`
     text-shadow: #474747 3px 5px 2px;
     font-weight: bold;
     padding-right: 3vw;
+    padding-bottom: 1vh;
     margin: 0;
 `
 

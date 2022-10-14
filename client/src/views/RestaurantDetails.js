@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import ReviewsContainer from '../components/ReviewsContainer'
 import MenusContainer from '../components/MenusContainer'
 import LeaveAReview from './LeaveAReview'

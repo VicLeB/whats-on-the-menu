@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useHistory} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import styled from "styled-components";
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -8,30 +8,28 @@ import Modal from 'react-bootstrap/Modal';
 
 function MyRestaurants({user}) {
     const [ownedRestaurant, setOwnedRestaurant] = useState(null)
-    const [errors, setErrors] = useState([])
     const [myRestaurantMenus, setMyRestaurantMenus] = useState(null)
     const [showAddNewMenu, setShowAddNewMenu] = useState(false)
     const [newMenuName, setNewMenuName] = useState("")
-    const [newMenuTheme, setNewMenuTheme]= useState(1)
-    const history= useHistory()
+    const [newMenuTheme, setNewMenuTheme] = useState(1);
 
-    const myRestaurants = user.restaurants
-    const restaurantIds = myRestaurants.map((rest)=> rest.id)
-
+    const myRestaurants = user?.restaurants
+    const restaurantIds = myRestaurants?.map((rest)=> rest.id)
 
     useEffect(()=>{
-        if (restaurantIds != null) {
-            fetch(`/restaurants/${restaurantIds[0]}`)
-                .then((resp)=>{
-                    if(resp.ok){
-                        resp.json().then(data => {
-                            setOwnedRestaurant(data)
-                            setMyRestaurantMenus(data.menus)
-                        }).catch(err => console.log({err}))
-                    }else{
-                        resp.json().then((data)=> setErrors(data.error))
-                    }
-                })
+        async function fetchData() {
+            try {
+                const restaurantData = await fetch(`/restaurants/${restaurantIds?.[0]}`);
+                const jsonData = await restaurantData.json();
+                setOwnedRestaurant(jsonData)
+                setMyRestaurantMenus(jsonData.menus)
+            } catch (err){
+                console.error(err)
+            }
+        }
+
+        if(restaurantIds){
+            fetchData();
         }
     }, [])
 
@@ -39,37 +37,38 @@ function MyRestaurants({user}) {
         setShowAddNewMenu(!showAddNewMenu)
     }
 
-    function handleNewMenu(e){
+    async function handleNewMenu(e){
         e.preventDefault()
-        fetch('/menus',{
-            method: "POST",
-            headers:{
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                name: newMenuName,
-                theme: newMenuTheme,
-                restaurant_id: restaurantIds[0]
-            }),
-        }).then((resp)=>{
-            if(resp.ok){
-                resp.json().then(history.go(0))
-            }else{
-                resp.json().then((data)=> setErrors(data.errors))
-            }
-        })
+        try {
+            const resp = await fetch('/menus',{
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: newMenuName,
+                    theme: newMenuTheme,
+                    restaurant_id: restaurantIds[0]
+                }),
+            });
+            const data = await resp.json();
+            setMyRestaurantMenus([...myRestaurantMenus, data]);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
-    function handleMenuDelete(menu){
-        fetch(`/menus/${menu.id}`,{
-            method: 'DELETE',
-        }).then((resp)=>{
-            if(resp.ok){
-                resp.json().then(history.go(0))
-            }else{
-                resp.json().then((data)=> setErrors(data.errors))
-            }
-        })
+    async function handleMenuDelete(menu){
+        try {
+            await fetch(`/menus/${menu.id}`, {
+                method: 'DELETE',
+            });
+            setMyRestaurantMenus(
+                myRestaurantMenus.filter((restaurantMenu) => (restaurantMenu.id !== menu.id))
+            );
+        } catch (err) {
+            console.error(err);
+        }
     }
 
 
@@ -82,12 +81,9 @@ function MyRestaurants({user}) {
         )
     }
 
-
-    const menusList = myRestaurantMenus.map((menu)=> <MenuContainer><MenuTitle>{menu.name}</MenuTitle><ButtonGroup><Link to={`/editMenu/${menu.id}`}><Button variant = 'secondary'>edit</Button></Link><Button variant = 'secondary' onClick={()=>handleMenuDelete(menu)}>remove</Button></ButtonGroup></MenuContainer>)
-
     return (
         <div>
-            <MyMenuPageTitle>Welcome to {ownedRestaurant.name} Management Page</MyMenuPageTitle>
+            <MyMenuPageTitle>Welcome to {ownedRestaurant?.name} Management Page</MyMenuPageTitle>
             <CurrentMenuContainer>
                 <CurrentMenuTitle>Current Menus:</CurrentMenuTitle>
                 <Button onClick={newMenuClick}>Add A New Menu</Button>
@@ -117,7 +113,25 @@ function MyRestaurants({user}) {
                         </Modal>
                     </div>:null}
                     <MyMenusListContainer>
-                    {menusList}
+                    {myRestaurantMenus?.map((menu, idx) => (
+                        <MenuContainer key={idx}>
+                            <MenuTitle>
+                                {menu.name}
+                            </MenuTitle>
+                            <ButtonGroup>
+                                <Link to={`/editMenu/${menu.id}`}>
+                                    <Button variant = 'secondary'>
+                                        edit
+                                    </Button>
+                                </Link>
+                                <Button
+                                    variant='secondary'
+                                    onClick={()=>handleMenuDelete(menu)}>
+                                    remove
+                                </Button>
+                            </ButtonGroup>
+                        </MenuContainer>)
+                    )}
                 </MyMenusListContainer>
         </div>
     )

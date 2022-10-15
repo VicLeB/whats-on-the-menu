@@ -57,7 +57,7 @@ function App() {
           <Menu user={user}/>
         </Route>
         <Route path="/myRestaurants">
-          <MyRestaurants user={user}/>
+          {user != null ? <MyRestaurants user={user}/> : null}
         </Route>
         <Route path="/editMenu/:id">
           <EditMyMenu/>

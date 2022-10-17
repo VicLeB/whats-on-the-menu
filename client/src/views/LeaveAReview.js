@@ -1,7 +1,10 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
-function LeaveAReview({user}) {
+function LeaveAReview({user, handleClose, show}) {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [reviewerName, setReviewerName] = useState("")
@@ -33,29 +36,48 @@ function LeaveAReview({user}) {
     }
 
     return (
-        <div>
-            <h1>We love to hear from you! Please leave a Review</h1>
-            <form onSubmit={handleReviewSubmit}>
-                <label>
-                    Title
-                    <input type="text" value={title} onChange={(e)=> setTitle(e.target.value)}/>
-                </label>
-                <label>
-                    Content
-                    <textarea value={content} onChange={(e)=>setContent(e.target.value)}/>
-                </label>
-                <label>
-                    Rating
-                    <input type="number" min="1" max="5"value={rating} onChange={(e)=>setRating(e.target.value)}/>
-                </label>
-                <label>
-                    Your First name
-                    <input type="text" value={reviewerName} onChange={(e)=>setReviewerName(e.target.value)}/>
-                </label>
-                <input type="submit" value="Submit"/>
-            </form>
-            {errors? <div>{errors}</div>:<div>Review Submitted!</div>}
-        </div>
+        <>
+        <Modal  show={show} onHide={handleClose} centered>
+            <Modal.Header>
+                <Modal.Title>We love to hear from you! Please leave a Review</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form onSubmit={handleReviewSubmit}>
+                    <Form.Group>
+                        <Form.Label>
+                            Title
+                            <Form.Control type="text" value={title} onChange={(e)=> setTitle(e.target.value)}/>
+                        </Form.Label>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            Content
+                            <Form.Control as='textarea'  value={content} onChange={(e)=>setContent(e.target.value)}/>
+                        </Form.Label>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            Rating
+                            <Form.Control type="number" min="1" max="5"value={rating} onChange={(e)=>setRating(e.target.value)}/>
+                        </Form.Label>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>
+                            Your First name
+                            <Form.Control type="text" value={reviewerName} onChange={(e)=>setReviewerName(e.target.value)}/>
+                        </Form.Label>
+                    </Form.Group>
+                    <Form.Group>
+                        <Button type="submit" variant='primary'>Submit</Button>
+                    </Form.Group>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant='secondary' onClick={handleClose}>Close</Button>
+            </Modal.Footer>
+            {errors? <Form.Text>{errors}</Form.Text>:<div>Review Submitted!</div>}
+            </Modal>
+        </>
     )
 }
 

@@ -9,6 +9,7 @@ import LeaveAReview from "./views/LeaveAReview";
 import Menu from "./views/Menu";
 import MyRestaurants from "./views/MyRestaurants";
 import EditMyMenu from "./views/EditMyMenu";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -56,7 +57,7 @@ function App() {
           <Menu user={user}/>
         </Route>
         <Route path="/myRestaurants">
-          <MyRestaurants user={user}/>
+          {user != null ? <MyRestaurants user={user}/> : null}
         </Route>
         <Route path="/editMenu/:id">
           <EditMyMenu/>
@@ -70,3 +71,4 @@ function App() {
 }
 
 export default App;
+

@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 import { useHistory } from 'react-router-dom'
+import styled from "styled-components";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function LoginForm({onLogin}) {
     const [username, setUsername]= useState("")
@@ -29,22 +32,41 @@ function LoginForm({onLogin}) {
         })
     }
 
-  return (
-    <>
-    <form onSubmit={handleSubmit}>
-        <label>
-            Username
-            <input type='text' value={username} onChange={(e)=> setUsername(e.target.value)}/>
-        </label>
-        <label>
-            Password
-            <input type='password' value={password} onChange= {(e)=> setPassword(e.target.value)}/>
-        </label>
-        <input type='submit' value="Login"/>
-    </form>
-    {errors? <div>{errors}</div>:<div>Login Success!</div>}
-    </>
-  )
+    return (
+    <LoginFormWrapper>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group>
+            <Form.Label>
+                Username
+                <Form.Control type='text' placeholder='Username...' value={username} onChange={(e)=> setUsername(e.target.value)}/>
+            </Form.Label>
+            </Form.Group>
+            <Form.Group>
+            <Form.Label>
+                Password
+                <Form.Control type='password' value={password} placeholder='Password...' onChange= {(e)=> setPassword(e.target.value)}/>
+            </Form.Label>
+                {errors? <Form.Text>{errors}</Form.Text>:<div>Login Success!</div>}
+            </Form.Group>
+            <FormButtonContainer>
+                <Form.Group>
+                    <Button type='submit' variant='primary'>Login</Button>
+                </Form.Group>
+            </FormButtonContainer>
+        </Form>
+    </LoginFormWrapper>
+    )
 }
 
 export default LoginForm
+
+const LoginFormWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+`
+
+const FormButtonContainer = styled.div`
+    padding-top: 2vh;
+`

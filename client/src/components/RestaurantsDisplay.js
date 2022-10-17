@@ -1,5 +1,7 @@
 import React from 'react'
 import RestaurantCard from './RestaurantCard'
+import styled from "styled-components";
+
 
 function RestaurantsDisplay({restaurants}) {
 
@@ -8,10 +10,19 @@ function RestaurantsDisplay({restaurants}) {
     })
 
   return (
-    <div>
+    <CardDisplay>
         {restaurantCards}
-    </div>
+    </CardDisplay>
   )
 }
 
 export default RestaurantsDisplay
+
+const CardDisplay = styled.div`
+display: flex;
+flex-direction: row;
+width: 100vw;
+height: 100vh;
+flex-wrap: wrap;
+justify-content:space-between;
+`
